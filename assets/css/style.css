@@ -1,0 +1,101 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+#high-btn {
+    font-size: 20px;
+    position: fixed;
+    top: 0;
+    left: 0em;
+    background: radial-gradient(circle, rgba(240,230,140,1) 0%, rgba(187,96,33,0.9542191876750701) 100%);
+    border-radius: 8px;
+    color: #13293d;
+    cursor: pointer;
+    font-size: 1em;
+    letter-spacing: 0.21px;
+    line-height: 16px;
+    max-width: 255px;
+    padding: 10px 32px;
+    text-align: center;
+    transition-duration: 0.15s;
+    transition-property: background-color;
+    transition-timing-function: linear;
+    margin-top: 0em;
+
+    
+
+}
+#container {
+   
+}
+
+#timer {
+    font-size: 20px;
+   position: fixed;
+   top: 0;
+   right: 4em;
+   
+}
+
+#quiz-title {
+    margin-top: 2em;
+    font-weight: 400%;
+    font-family: 'Times New Roman', Times, serif;
+}
+#quiz-text {
+    font-size: 15px;
+    margin-top: 10px;
+    line-height: 1.5;
+    font-family:'Times New Roman', Times, serif;
+    font-weight: 300%;
+}
+#start-btn {
+    background: radial-gradient(circle, rgba(240,230,140,1) 0%, rgba(187,96,33,0.9542191876750701) 100%);
+    border-radius: 8px;
+    color: #13293d;
+    cursor: pointer;
+    font-size: 1em;
+    letter-spacing: 0.21px;
+    line-height: 16px;
+    max-width: 255px;
+    padding: 10px 32px;
+    text-align: center;
+    transition-duration: 0.15s;
+    transition-property: background-color;
+    transition-timing-function: linear;
+    margin-top: 1em;
+}
+#quiz-container {
+    width: 50%;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    justify-content: space-evenly;
+    align-items: center;
+    word-wrap:break-word;
+    text-align: center;
+    padding: 4em;
+    margin-right: 10em;
+    margin-left: 10em;
+    position: relative;
+    top: 10em;
+    right: 17em;
+    left: 17em;
+    border: 2px solid black;
+    
+}
+@media screen and (max-width: 768px) {
+    #quiz-container {
+        width: 50%;
+        padding: 3em;
+        position: fixed;
+        top: 10em;
+        right: 12em;
+        left: 8em;
+        margin-right: 5em;
+        margin-left: 5em;
+        
+    }
+
+}

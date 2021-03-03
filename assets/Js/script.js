@@ -37,27 +37,61 @@ var quizContainer = document.querySelector("#quiz-container");
 var questionsEl = document.querySelector("#questions-el");
 //create a new ul for the html here
 var quizUL = document.createElement("ul");
-var startBtn = document.querySelector("start-btn");
+
+var timer = document.querySelector("timer");
 
 
 
 //timer variables
 var timerLeft = 60;
-var timeEl = document.querySelector("#timer-el");
+var timeEl = document.querySelector("#timer-remaining");
 var penalty = 10;
 var timerInterval = 0;
 
-
-startBtn.addEventListener("click", function () {
+timer.addEventListener("click", function () {
     if (timerInterval === 0) {
-        timeEl.textContent = timerLeft + "second remaining";
-        timerLeft--;
-    if (timerInterval <= 0){
+        timerInterval = setInterval(function() {
+            timerLeft--;
+            timeEl.textContent = "Time: " + timerLeft;
+            
+    if (timerLeft <= 0){
         clearInterval(timerInterval);
-        finished(); //still needs to be defined
+        finished();
+        timeEl.textContent = "time is up!";
     }
-    } 
-})
+    }, 1000);
+    }
+    buildQuiz(currentQuestion);
+});
+
+
+
+//now we need to declare and create our buildQuiz function
+function buildQuiz() {
+        questionsEl.innerHTML = "";
+        quizUL.innerHTML = "";
+    for (var i = 0; i < questions.length; i++) {
+        var userQuestion = questions[currentQuestion].title;
+        var userChoice = questions[currentQuestion].choices;
+        questionsEl.innerHTML = userQuestion;
+    }
+    userChoice.forEach(newItem) {
+        var quizList = document.createElement("li");
+        quizList.textContent = newItem;
+        questionsEl.appendChild(quizUL);
+        quizUL.appendChild(quizList);
+        quizList.addEventListener("click", compare());
+    }
+
+}
+
+
+
+
+
+
+
+
 
 
 //we need an event listener on a button to start the quiz--probably need an anonymous function inside

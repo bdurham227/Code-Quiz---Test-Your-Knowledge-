@@ -1,37 +1,73 @@
-// set variables for quiz
-var highscores;
-var time;
-var correct;
-var incorrect;
-var selectAnswerArray = [];
+//var answers = ["array","boolean","string","object","javascript","functions","iterations"];
+var quizQuestions = document.getElementById("quiz");
+var quizEl = document.getElementById("quiz-el");
+var timerEl = document.getElementById("timer");
+var myTimer;
 
 
+//quizQuestions = ["Quiz Question 1", "Quiz Question 2", "quiz question 3", "quiz question 4"];
+var timerStart = 60;
+var randomQuestion;
 
-//set variables to reference the DOM elements
-var quizContainer = document.getElementById("quiz");
-var resultsContainer = document.getElementById("results");
-var submitButton = document.getElementById("submit");
+var quizQuestions = [
+    {
+        title: "Commonly used data types DO NOT include:",
+        choices: ["strings", "booleans", "alerts", "numbers"],
+        answer: "alerts"
+    },
+    {
+        title: "The condition in an if / else statement is enclosed within ____.",
+        choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
+        answer: "parentheses"
+    },
+    {
+        title: "Arrays in Javascript can be used to store ____.",
+        choices: ["numbers and strings", "other arrays", "booleans", "all of the above"],
+        answer: "all of the above"
+    },
+    {
+        title: "String values must be enclosed within ____ when being assigned to variables.",
+        choices: ["commas", "curly brackets", "quotes", "parenthesis"],
+        answer: "quotes"
+    },
+    {
+        title: "A very useful tool for used during development and debugging for printing content to the debugger is:",
+        choices: ["Javascript", "terminal / bash", "for loops", "console log"],
+        answer: "console log"
+    },
+
+];
+
+
 var startButton = document.getElementById("start-btn");
-var timeEl = document.querySelector("#timer");
-var highScoresBtn = document.querySelector("#high-btn");
-var highscoresEl = document.querySelector("#highscores");
 
+startButton.addEventListener("click", startGame);
 
-//create function to build the quiz
+function startGame() {
+    timerStart = 60;
+    timerEl.textContent = timerStart;
+    randomQuestion = quizQuestions[Math.floor(Math.random() * quizQuestions.length)]
+    console.log(randomQuestion);
+    myTimer = setInterval(alertTime, 1000);
 
-//set timerinterval
+    }
+document.addEventListener("click", function(event){
+    event.preventDefault();
+    var correctAnswer = event.target;
+    if (event.target == quizQuestions.answer){
+        quizEl.textContent = quizQuestions.answer;
+    } else {
+        !correctAnswer;
+    };
 
-//show starting time
+})
+//timer function
+function alertTime() {
+    if (timerStart > 0) {
+        timerStart--;
+        ;
+        return timerEl.textContent = timerStart;
+    }
+    clearInterval(myTimer);
+}
 
-//create function to get questions
-
-//loop over choices
-
-//create display buttons for choice
-
-//display on the page
-
-
-//create function to end the game
-
-//create function

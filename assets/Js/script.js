@@ -2,141 +2,134 @@
 var questions = [
     {
         title: "Commonly used data types DO NOT include:",
-        choices: ["strings", "booleans", "alerts", "numbers"],
+        choice1: "strings",
+        choice2: "booleans",
+        choice3: "alerts",
+        choice4: "numbers",
         answer: "alerts"
     },
     {
         title: "The condition in an if / else statement is enclosed within ____.",
-        choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
-        answer: "parentheses"
+        choices1: "quotes",
+        choice2: "curly brackets",
+        choice3: "parentheses",
+        choice4: "square brackets",
+        answer: 3
     },
     {
         title: "Arrays in Javascript can be used to store ____.",
-        choices: ["numbers and strings", "other arrays", "booleans", "all of the above"],
-        answer: "all of the above"
+        choices1: "numbers and strings",
+        choice2: "other arrays",
+        choice3: "booleans",
+        choice4: "all of the above",
+        answer: 4
     },
     {
         title: "String values must be enclosed within ____ when being assigned to variables.",
-        choices: ["commas", "curly brackets", "quotes", "parenthesis"],
-        answer: "quotes"
+        choices1: "commas",
+        choice2: "curly brackets",
+        choice3: "quotes",
+        choice4: "parenthesis",
+        answer: 3
     },
     {
         title: "A very useful tool for used during development and debugging for printing content to the debugger is:",
-        choices: ["Javascript", "terminal / bash", "for loops", "console log"],
-        answer: "console log"
+        choices1: "Javascript",
+        choice2: "terminal / bash",
+        choice3: "for loops",
+        choice4:  "console log",
+        answer: 4
     },
 
 ];
-//variables holding quiz scores/current question
+var container = document.querySelector(".container");
+var timer = document.querySelector("#start");
+var question = document.getElementById("questions");
+var choice = Array.from(document.getElementsByClassName("choice-text"));
+var timerEl = document.querySelector("#time-el");
+//var answerIndex = Array.from("#choice-text");
+
+var currentQuestion = [];
 var score = 0;
-var currentQuestion = 0;
+var questionCounter = 0;
+var availableQuestions = [];
 
-//variables for DOM
-var quizContainer = document.querySelector("#quiz-container");
-//where questions will be displayed
-var questionsEl = document.querySelector("#questions-el");
-//create a new ul for the html here
-var quizUL = document.createElement("ul");
-
-var timer = document.querySelector("timer");
-
-
-
-//timer variables
-var timerLeft = 60;
-var timeEl = document.querySelector("#timer-remaining");
-var penalty = 10;
+var timeLeft = 60;
 var timerInterval = 0;
 
+
+
+
 timer.addEventListener("click", function () {
-    if (timerInterval === 0) {
-        timerInterval = setInterval(function() {
-            timerLeft--;
-            timeEl.textContent = "Time: " + timerLeft;
-            
-    if (timerLeft <= 0){
-        clearInterval(timerInterval);
-        finished();
-        timeEl.textContent = "time is up!";
-    }
+    timerInterval = setInterval(function () {
+        if (timeLeft > 1) {
+            timerEl.textContent = timeLeft + " seconds remaining";
+            timeLeft--;
+        if (timeLeft === 0) {
+            timerEl.textContent = " time is up!";
+            clearInterval(timerInterval);
+            startGame();
+        }
+        }
     }, 1000);
-    }
-    buildQuiz(currentQuestion);
+})
+
+function startGame () {
+    score = 0;
+    questionCounter++;
+    availableQuestions = [...questions];
+    getNextQuestion();
+};
+
+
+
+function getNextQuestion() {
+    questionCounter++;
+    const questionIndex = Math.floor(Math.random() * availableQuestions.length);
+    //console.log(questionIndex);
+    currentQuestion = availableQuestions[questionIndex];
+    //console.log(currentQuestion);
+    question.innerText = currentQuestion.title;
+    
+choice.forEach(function (choice){
+    const options = choice.dataset["number"];
+    choice.innerText = currentQuestion["choice" + options];
+    
 });
-
-
-
-//now we need to declare and create our buildQuiz function
-function buildQuiz() {
-        questionsEl.innerHTML = "";
-        quizUL.innerHTML = "";
-    for (var i = 0; i < questions.length; i++) {
-        var userQuestion = questions[currentQuestion].title;
-        var userChoice = questions[currentQuestion].choices;
-        questionsEl.innerHTML = userQuestion;
-    }
-    userChoice.forEach(newItem) {
-        var quizList = document.createElement("li");
-        quizList.textContent = newItem;
-        questionsEl.appendChild(quizUL);
-        quizUL.appendChild(quizList);
-        quizList.addEventListener("click", compare());
-    }
-
+availableQuestions.splice(questionIndex, 1);
 }
 
+choice.forEach(function(choice){
+    options.addEventListener("click", function(event){
+        var userchoice = event.target;
+        var userAnswer = userchoice.dataset("number");
+        console.log( userchoice == userAnswer);
+        getNextQuestion();
+
+    })
+
+})
 
 
 
 
+//function compare(event) {
+   // var element = event.target;
+
+    //if (element.textContent == currentQuestion[questions].answer) {
+        //score++;
+        //window.alert("Correct! the answer is " + currentQuestion[questions].answer);
+    //}
+
+//}
 
 
+startGame();
 
-
-
-//we need an event listener on a button to start the quiz--probably need an anonymous function inside
-//document.addEventListener("click", startQuiz);
-
-
-//we need a start game function + need a timer function with setInterval and clearInterval
-
-
-//var timerInterval = setInterval(function () {
-   // if (timerLeft > 1) {
-      //  timeEl.textContent = timerLeft + " seconds remaining";
-        //console.log(timerLeft);
-   // } //else if ()
-    //clearInterval(timerInterval);
-//})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//need a function to build the quiz with if/else statements most likely
-
-// need methods to display the quiz onto the DOM most likely using append/append child
-//textcontent and innerhtml
-
-
-
-
-
-
-
-
-
-
-//startQuiz();
+//we need the startGame function to access our questions and display
+//we need to define our getNextQuestion function. we need to use math.floor and math.random to generate
+//random questions
+//we need to be able to display these random questions
+//we need to increment our question counter
+//we need to create a new variable and set its value to the random math
+//display that content to the html

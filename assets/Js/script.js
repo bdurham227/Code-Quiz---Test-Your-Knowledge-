@@ -10,7 +10,7 @@ var questions = [
     },
     {
         title: "The condition in an if / else statement is enclosed within ____.",
-        choices1: "quotes",
+        choice1: "quotes",
         choice2: "curly brackets",
         choice3: "parentheses",
         choice4: "square brackets",
@@ -18,7 +18,7 @@ var questions = [
     },
     {
         title: "Arrays in Javascript can be used to store ____.",
-        choices1: "numbers and strings",
+        choice1: "numbers and strings",
         choice2: "other arrays",
         choice3: "booleans",
         choice4: "all of the above",
@@ -26,7 +26,7 @@ var questions = [
     },
     {
         title: "String values must be enclosed within ____ when being assigned to variables.",
-        choices1: "commas",
+        choice1: "commas",
         choice2: "curly brackets",
         choice3: "quotes",
         choice4: "parenthesis",
@@ -34,7 +34,7 @@ var questions = [
     },
     {
         title: "A very useful tool for used during development and debugging for printing content to the debugger is:",
-        choices1: "Javascript",
+        choice1: "Javascript",
         choice2: "terminal / bash",
         choice3: "for loops",
         choice4:  "console log",
@@ -45,7 +45,7 @@ var questions = [
 var container = document.querySelector(".container");
 var timer = document.querySelector("#start");
 var question = document.getElementById("questions");
-var choice = Array.from(document.getElementsByClassName("choice-text"));
+var choices = Array.from(document.getElementsByClassName("choice-text"));
 var timerEl = document.querySelector("#time-el");
 //var answerIndex = Array.from("#choice-text");
 
@@ -56,13 +56,16 @@ var availableQuestions = [];
 
 var timeLeft = 60;
 var timerInterval = 0;
+var penalty = 10;
+
+const totalQuestions = 4;
 
 
 
 
 timer.addEventListener("click", function () {
     timerInterval = setInterval(function () {
-        if (timeLeft > 1) {
+        if (timeLeft > 0) {
             timerEl.textContent = timeLeft + " seconds remaining";
             timeLeft--;
         if (timeLeft === 0) {
@@ -84,6 +87,9 @@ function startGame () {
 
 
 function getNextQuestion() {
+    //if (availableQuestions.length == 0 || quesstionCounter >= totalQuestions) {
+        
+    //}
     questionCounter++;
     const questionIndex = Math.floor(Math.random() * availableQuestions.length);
     //console.log(questionIndex);
@@ -91,19 +97,33 @@ function getNextQuestion() {
     //console.log(currentQuestion);
     question.innerText = currentQuestion.title;
     
-choice.forEach(function (choice){
-    const options = choice.dataset["number"];
-    choice.innerText = currentQuestion["choice" + options];
+choices.forEach(function (choice){
+    const number = choice.dataset["number"];
+    choice.innerText = currentQuestion["choice" + number];
     
 });
 availableQuestions.splice(questionIndex, 1);
 }
 
-choice.forEach(function(choice){
-    options.addEventListener("click", function(event){
-        var userchoice = event.target;
-        var userAnswer = userchoice.dataset("number");
-        console.log( userchoice == userAnswer);
+choices.forEach(function (choice){
+    choice.addEventListener("click", function(event){
+        var userChoice = event.target;
+        var userAnswer = userChoice.dataset["number"];
+
+    if (userChoice.matches("p")) {
+        var answerDiv = document.createElement("div");
+        answerDiv.setAttribute("id","answerDiv");
+    }
+
+    //var correctAnswer = "incorrect";
+    if (userAnswer == currentQuestion.answer) {
+        score++;
+        answerDiv.innerHTML = "Correct! The answer is " + currentQuestion.answer;
+    } else {
+        timeLeft = timeLeft - penalty;
+        answerDiv.textContent = "Incorrect! The answer is " + currentQuestion.answer;
+    }
+     questionCounter++;  
         getNextQuestion();
 
     })

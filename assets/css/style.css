@@ -3,7 +3,7 @@
     padding: 0;
     margin: 0;
 }
-#high-btn {
+.results {
     font-size: 20px;
     position: fixed;
     top: 0;

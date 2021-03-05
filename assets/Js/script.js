@@ -44,8 +44,8 @@ var questions = [
 ];
 var container = document.querySelector(".container");
 var timer = document.querySelector("#start");
-var question = document.getElementById("questions");
-var choices = Array.from(document.getElementsByClassName("choice-text"));
+var questionElement = document.getElementById("questions");
+var answerChoices = Array.from(document.getElementsByClassName("choice-text"));
 var timerEl = document.querySelector("#time-el");
 //var answerIndex = Array.from("#choice-text");
 
@@ -59,13 +59,14 @@ var timerInterval = 0;
 var penalty = 10;
 
 const totalQuestions = 4;
+const scoreBonus = 10;
 
 
 
 
 timer.addEventListener("click", function () {
     timerInterval = setInterval(function () {
-        if (timeLeft > 0) {
+        if (timeLeft > 1) {
             timerEl.textContent = timeLeft + " seconds remaining";
             timeLeft--;
         if (timeLeft === 0) {
@@ -81,75 +82,57 @@ function startGame () {
     score = 0;
     questionCounter++;
     availableQuestions = [...questions];
-    getNextQuestion();
+    renderQuestions();
+    //console.log(availableQuestions);
 };
 
 
 
-function getNextQuestion() {
-    //if (availableQuestions.length == 0 || quesstionCounter >= totalQuestions) {
-        
-    //}
+function renderQuestions() {
+if (availableQuestions.length == 0 || questionElement >= totalQuestions) {
+return window.location.assign("/end.html");
+}
     questionCounter++;
-    const questionIndex = Math.floor(Math.random() * availableQuestions.length);
-    //console.log(questionIndex);
+    const questionIndex = Math.floor(Math.random() * questions.length);
     currentQuestion = availableQuestions[questionIndex];
-    //console.log(currentQuestion);
-    question.innerText = currentQuestion.title;
-    
-choices.forEach(function (choice){
-    const number = choice.dataset["number"];
-    choice.innerText = currentQuestion["choice" + number];
-    
+    questionElement.innerText = currentQuestion.title;
+
+answerChoices.forEach(function (choice) {
+const number = choice.dataset["number"];
+   choice.innerText = currentQuestion["choice" + number];
+   //console.log(number);
 });
 availableQuestions.splice(questionIndex, 1);
-}
+};
 
-choices.forEach(function (choice){
+answerChoices.forEach(function (choice) {
     choice.addEventListener("click", function(event){
-        var userChoice = event.target;
-        var userAnswer = userChoice.dataset["number"];
-
-    if (userChoice.matches("p")) {
-        var answerDiv = document.createElement("div");
-        answerDiv.setAttribute("id","answerDiv");
-    }
-
-    //var correctAnswer = "incorrect";
-    if (userAnswer == currentQuestion.answer) {
-        score++;
-        answerDiv.innerHTML = "Correct! The answer is " + currentQuestion.answer;
-    } else {
-        timeLeft = timeLeft - penalty;
-        answerDiv.textContent = "Incorrect! The answer is " + currentQuestion.answer;
-    }
-     questionCounter++;  
-        getNextQuestion();
-
+        
+        const selectedChoice = event.target;
+        const selectedAnswer = selectedChoice.dataset["number"];
+        renderQuestions();
     })
-
 })
+    
 
 
 
 
-//function compare(event) {
-   // var element = event.target;
 
-    //if (element.textContent == currentQuestion[questions].answer) {
-        //score++;
-        //window.alert("Correct! the answer is " + currentQuestion[questions].answer);
-    //}
 
-//}
+//answerChoices.forEach(function (choice){
+   // number.addEventListener("click", function(event){
+       // var selectedChoice = event.target;
+       // var selectedAnswer = selectedChoice.dataset[choice];
+   // })
+//})
+
+
+
+
+
+
+
 
 
 startGame();
-
-//we need the startGame function to access our questions and display
-//we need to define our getNextQuestion function. we need to use math.floor and math.random to generate
-//random questions
-//we need to be able to display these random questions
-//we need to increment our question counter
-//we need to create a new variable and set its value to the random math
-//display that content to the html

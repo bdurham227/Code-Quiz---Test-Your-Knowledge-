@@ -42,13 +42,13 @@ var initialsContent = document.getElementById("initials-content");
 var initialsInput = document.getElementById("initials");
 
 var highScore = document.querySelector("#highScore");
-var clear = document.querySelector("#clear");
-var goBack = document.querySelector("#goBack");
+//var clear = document.querySelector("#clear");
+//var goBack = document.querySelector("#goBack");
 
 
 var startEl = document.getElementById("starting-el");
 var choicesEl = document.getElementById("choices-el");
-//var highscoresEl = document.getElementById("highscores-el");
+var highscoresEl = document.getElementById("highscores-el");
 var highscoresLink = document.getElementById("highscores-link");
 var submitBtn = document.getElementById("submit-btn");
 
@@ -65,6 +65,10 @@ btn3.setAttribute("style", "display:none;");
 var btn4 = document.querySelector('#button4');
 btn4.setAttribute("style", "display:none;");
 var start = 0;
+
+
+
+
 
 startBtn.addEventListener('click', function () {
     timeInterval = setInterval(function () {
@@ -102,7 +106,7 @@ function startQuiz () {
     startEl.setAttribute("style","display:none;");
     choicesEl.setAttribute("style", "display:block;");
     questionsEl.setAttribute("style","display:block;");
-    highscoresLink.setAttribute("style","display:none;");
+    //highscoresLink.setAttribute("style","display:none;");
     choicesEl.innerHTML = "";
     //update buttons loads buttons and sets events listenters.
 		updateButtons();
@@ -228,25 +232,36 @@ btn1.setAttribute("style", "display:none;");
   clearInterval(timeInterval);
   
   
-  
-  
+
 }
 function renderScore () {
     var initials = localStorage.getItem("initials");
-    initialsContent.textContent = initials;
+    //initialsContent.textContent = initials;
+    initials = JSON.parse(initials);
 }
+
+////var totalScores = 
+//localStorage.getItem("initials");
+//initials = JSON.parse(initials);
+
+
+
+
 submitBtn.addEventListener("click", function (event) {
     event.preventDefault();
     var initials = document.getElementById("initials").value
     renderScore();
-    if (initials == "") {
-        window.alert("initials cannot be blank");
+    if (initials == null) {
+        window.alert("please enter your initials");
     } else {
         console.log(initials);
         window.alert("succesfully registerd your score!");
-        localStorage.setItem(score, JSON.stringify(initials));
+        //localStorage.setItem(score, JSON.stringify(initials));
     }
-
+    localStorage.setItem(score, JSON.stringify(initials));
+    
+    highscoresEl.innerText = initials;
 })
+
 
 

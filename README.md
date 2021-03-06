@@ -12,7 +12,7 @@
 <a name="desc"></a>
 ## 1. Description
 ​
-This is the Coding Quiz challenge.
+This is the Coding Quiz challenge! In this assignment we were challenged to create a Coding quiz using Html, Css and Javascript. When the user first lands on the page they are presented with a simple interface. If the user clicks on the "start the Quiz" button the userface will hide irrelevant information and the quiz questions will be visible. Once the user finishes the quiz their ending score will be displayed to them. I still have to work through storing the scores into the localstorage and to be loaded into the highscores.
 ​
 <a name="nav"></a>
 ## 2. Navigation
